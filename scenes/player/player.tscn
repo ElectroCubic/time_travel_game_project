@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/player/player.gd" id="1_pelrv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m46yr"]
-size = Vector2(64, 64)
+size = Vector2(114.5, 117)
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(64, 64)
