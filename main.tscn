@@ -1,9 +1,23 @@
-[gd_scene format=3 uid="uid://bk3id7w0gr55c"]
+[gd_scene load_steps=2 format=3 uid="uid://bk3id7w0gr55c"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_3ty2x"]
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_3ty2x")
 
-[node name="Label" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Hello this is main
-Hello World!!~"
+[node name="Play" type="Button" parent="."]
+offset_left = 498.0
+offset_top = 186.0
+offset_right = 638.0
+offset_bottom = 236.0
+text = "Play "
+
+[node name="Exit" type="Button" parent="."]
+offset_left = 498.0
+offset_top = 256.0
+offset_right = 638.0
+offset_bottom = 306.0
+text = "Quit"
+
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
