@@ -23,7 +23,7 @@ func move_player():
 		if is_moving == false:
 			is_moving = true
 			var tween = create_tween()
-			tween.tween_property(self, "position", position + (direction * TILE_SIZE), 0.3)
+			tween.tween_property(self, "position", position + (direction * TILE_SIZE), 0.5)
 			tween.tween_callback(stop_moving)
 			
 func stop_moving():
