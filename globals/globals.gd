@@ -1,8 +1,8 @@
 extends Node
 
+signal stat_change
+
 var player_lives: int = 3:
-	get:
-		return player_lives
 	set(value):
 		player_lives = value
-
+		stat_change.emit()

@@ -6,8 +6,8 @@ func updateCounter():
 	livesCounterlabel.text = "Lives: " + str(Globals.player_lives)
 	
 func _ready():
+	Globals.connect("stat_change", update_stat_label)
 	updateCounter()
 
-func _process(_delta):
+func update_stat_label():
 	updateCounter()
-
