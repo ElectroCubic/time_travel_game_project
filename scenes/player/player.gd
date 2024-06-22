@@ -13,7 +13,7 @@ func replay_movements():
 	var length = directions.size()
 	for i in range(0,length):
 		await move_player(directions[i])
-		#print(directions[i])
+		print(directions[i])
 
 
 func _unhandled_input(_event):
@@ -39,7 +39,7 @@ func _unhandled_input(_event):
 
 func record_movement(dir):
 	directions.append(dir)
-	#print(directions)
+	print(directions)
 	
 func move_player(dir):
 	if is_moving == false:
@@ -53,4 +53,7 @@ func stop_moving():
 	is_moving = false
 	
 func togglePowerup():
-	recording = true
+	recording = !recording
+	if !recording:
+		await get_tree().create_timer(0.4).timeout
+		replay_movements()

@@ -6,10 +6,11 @@ class_name Level
 
 @onready var player = $"Player Entities/Player" as Player
 
-
+'''
 func checkActivated():
 	if player.recording == true:
 		player.recording = false
 		
 		player.replay_movements()
 
+'''

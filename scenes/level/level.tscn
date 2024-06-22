@@ -136,6 +136,3 @@ layer_1/tile_data = PackedInt32Array(131073, 0, 65536)
 [node name="Player" parent="Player Entities" instance=ExtResource("1_yknjj")]
 
 [node name="UI" parent="." instance=ExtResource("3_f71h5")]
-
-[connection signal="body_entered" from="TileMap/TimeFragment" to="TileMap/TimeFragment" method="_on_body_entered"]
-[connection signal="body_exited" from="TileMap/TimeFragment" to="TileMap/TimeFragment" method="_on_body_exited"]
