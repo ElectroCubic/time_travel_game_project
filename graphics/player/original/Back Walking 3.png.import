@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ch7tvh4vj7max"
-path="res://.godot/imported/environment_11.png-e553fb974c03c6b43427e9fb8bcd1336.ctex"
+uid="uid://utp1dsvfho3w"
+path="res://.godot/imported/Back Walking 3.png-4d518d6074037e9b72f67b49853debee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/environment_11.png"
-dest_files=["res://.godot/imported/environment_11.png-e553fb974c03c6b43427e9fb8bcd1336.ctex"]
+source_file="res://graphics/player/original/Back Walking 3.png"
+dest_files=["res://.godot/imported/Back Walking 3.png-4d518d6074037e9b72f67b49853debee.ctex"]
 
 [params]
 

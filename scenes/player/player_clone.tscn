@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://7ccyrl0jhh6b"]
+
+[ext_resource type="Texture2D" uid="uid://dvmnrl7ujlodm" path="res://icon.svg" id="1_pfnj7"]
+[ext_resource type="Script" path="res://scenes/player/player_clone.gd" id="1_vue14"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ju8is"]
+size = Vector2(114.5, 117)
+
+[node name="PlayerClone" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 30
+motion_mode = 1
+script = ExtResource("1_vue14")
+move_time = 0.5
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pfnj7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ju8is")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)

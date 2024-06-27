@@ -1,19 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://dlxqeltamfdal"]
 
-[ext_resource type="Script" path="res://TimeFragment.gd" id="1_5ewgc"]
-[ext_resource type="Texture2D" uid="uid://ch7tvh4vj7max" path="res://graphics/environment_11.png" id="2_8f8t5"]
+[ext_resource type="Script" path="res://scenes/powerups/chronoLoop.gd" id="1_1yr5q"]
+[ext_resource type="Texture2D" uid="uid://ch7tvh4vj7max" path="res://graphics/powerups/environment_11.png" id="2_lo1l8"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b63vh"]
 radius = 28.2843
 
-[node name="TimeFragment" type="Area2D"]
-script = ExtResource("1_5ewgc")
+[node name="ChronoLoop" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_1yr5q")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_8f8t5")
+texture = ExtResource("2_lo1l8")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b63vh")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_body_exited"]

@@ -6,54 +6,41 @@ var is_moving: bool = false
 var direction: Vector2
 const TILE_SIZE: int = 128
 
-var recording: bool = false
-var directions: Array[Vector2]
+@export var move_time: float 
+@onready var anim_sprite = $AnimatedSprite2D
+@onready var anim = $AnimationPlayer
+@onready var level = get_node("../../")
 
-func replay_movements():
-	var length = directions.size()
-	for i in range(0,length):
-		await move_player(directions[i])
-		print(directions[i])
+func _ready():
+	anim.play("Idle_Front")
 
-
-func _unhandled_input(_event):
-
+func _unhandled_key_input(_event):
 	if is_moving == false:
-		if Input.is_action_pressed("Left"):
-			direction = Vector2.LEFT
-			move_player(direction)
-		elif Input.is_action_pressed("Right"):
-			direction = Vector2.RIGHT
-			move_player(direction)
-		elif Input.is_action_pressed("Up"):
-			direction = Vector2.UP
-			move_player(direction)
-		elif Input.is_action_pressed("Down"):
-			direction = Vector2.DOWN
-			move_player(direction)
-			
-		if recording:
-			record_movement(direction)
+		anim.play("Idle_Front")
 		
+		if !level.is_recording:
+			direction = Input.get_vector("Left","Right","Up","Down")
+		
+			if direction == Vector2.UP:
+				anim.play("Back Walk")
+			elif direction == Vector2.DOWN:
+				anim.play("Front Walk")
+			elif direction == Vector2.LEFT:
+				anim_sprite.flip_h = false
+				anim.play("Side Walk")
+			elif direction == Vector2.RIGHT:
+				anim_sprite.flip_h = true
+				anim.play("Side Walk")
+			
+			move_player(direction)
 
-
-func record_movement(dir):
-	directions.append(dir)
-	print(directions)
-	
 func move_player(dir):
 	if is_moving == false:
 		is_moving = true
 		var tween = create_tween()
-		tween.tween_property(self, "position", position + (dir * TILE_SIZE), 0.5)
+		tween.tween_property(self, "position", position + (dir * TILE_SIZE), move_time)
 		tween.tween_callback(stop_moving)
 		await tween.finished
-		
+
 func stop_moving():
 	is_moving = false
-	
-func togglePowerup():
-	recording = !recording
-	if !recording:
-		await get_tree().create_timer(0.4).timeout
-		replay_movements()
