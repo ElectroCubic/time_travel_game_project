@@ -1,23 +1,66 @@
-[gd_scene load_steps=2 format=3 uid="uid://bk3id7w0gr55c"]
+[gd_scene load_steps=4 format=3 uid="uid://bk3id7w0gr55c"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_3ty2x"]
+[ext_resource type="Texture2D" uid="uid://c7yeu6yio3gsj" path="res://graphics/tileset/button1.png" id="2_7yvkc"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_sv4i0"]
+font_size = 52
+font_color = Color(0.202723, 0.202723, 0.202723, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_3ty2x")
 
-[node name="Play" type="Button" parent="."]
-offset_left = 498.0
-offset_top = 186.0
-offset_right = 638.0
-offset_bottom = 236.0
-text = "Play "
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -232.0
+offset_top = -141.0
+offset_right = 1419.0
+offset_bottom = 808.0
+color = Color(0.643569, 0.640508, 1, 1)
 
-[node name="Exit" type="Button" parent="."]
-offset_left = 498.0
-offset_top = 256.0
-offset_right = 638.0
-offset_bottom = 306.0
+[node name="Play" type="TextureButton" parent="."]
+offset_left = 54.0
+offset_top = 352.0
+offset_right = 530.0
+offset_bottom = 478.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("2_7yvkc")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Play"]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 25.0
+offset_right = 286.0
+offset_bottom = 97.0
+text = "Play"
+label_settings = SubResource("LabelSettings_sv4i0")
+
+[node name="Quit" type="TextureButton" parent="."]
+offset_left = 55.0
+offset_top = 448.0
+offset_right = 531.0
+offset_bottom = 574.0
+scale = Vector2(0.7, 0.7)
+texture_normal = ExtResource("2_7yvkc")
+stretch_mode = 4
+
+[node name="Label" type="Label" parent="Quit"]
+layout_mode = 0
+offset_left = 174.0
+offset_top = 25.0
+offset_right = 286.0
+offset_bottom = 97.0
 text = "Quit"
+label_settings = SubResource("LabelSettings_sv4i0")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 331.0
+offset_top = 79.0
+offset_right = 894.0
+offset_bottom = 219.0
+theme_override_colors/default_color = Color(0.299175, 0.000662472, 0.769387, 1)
+theme_override_font_sizes/normal_font_size = 96
+text = "Chrono Bot"
 
 [connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]
