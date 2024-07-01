@@ -1,10 +1,39 @@
-[gd_scene load_steps=4 format=3 uid="uid://7ccyrl0jhh6b"]
+[gd_scene load_steps=7 format=3 uid="uid://7ccyrl0jhh6b"]
 
-[ext_resource type="Texture2D" uid="uid://dvmnrl7ujlodm" path="res://icon.svg" id="1_pfnj7"]
 [ext_resource type="Script" path="res://scenes/player/player_clone.gd" id="1_vue14"]
+[ext_resource type="Texture2D" uid="uid://bdxdboyp061b2" path="res://graphics/player/player_clones/Bomb_1.png" id="2_jihty"]
+[ext_resource type="Texture2D" uid="uid://d2om3gtsajup8" path="res://graphics/player/player_clones/Front Walking 1.png" id="3_mufk4"]
+[ext_resource type="Texture2D" uid="uid://bi0bf2eo11uvy" path="res://graphics/player/player_clones/Phantom_1.png" id="4_sr1yg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_secuq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jihty")
+}],
+"loop": false,
+"name": &"Chrono_Bomb_Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_mufk4")
+}],
+"loop": false,
+"name": &"Chrono_Loop_Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_sr1yg")
+}],
+"loop": false,
+"name": &"Chrono_Phantom_Idle",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ju8is"]
-size = Vector2(114.5, 117)
+size = Vector2(54, 96)
 
 [node name="PlayerClone" type="CharacterBody2D"]
 collision_layer = 2
@@ -13,11 +42,13 @@ motion_mode = 1
 script = ExtResource("1_vue14")
 move_time = 0.5
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_pfnj7")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_secuq")
+animation = &"Chrono_Bomb_Idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_ju8is")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.5, 0.5)
+zoom = Vector2(0.8, 0.8)

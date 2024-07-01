@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://q54o8v44xwml"]
+
+[ext_resource type="Texture2D" uid="uid://cq2n7lw14gryh" path="res://graphics/powerups/environment_08.png" id="1_5wk21"]
+[ext_resource type="Script" path="res://scenes/powerups/chrono_phantom.gd" id="1_i1nnx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gm5kr"]
+radius = 20.0998
+
+[node name="ChronoPhantom" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_i1nnx")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -4)
+texture = ExtResource("1_5wk21")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gm5kr")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
