@@ -140,20 +140,22 @@ layer_1/tile_data = PackedInt32Array(196610, 3, 65536)
 [node name="Powerups" type="Node2D" parent="."]
 script = SubResource("GDScript_mimid")
 
-[node name="ChronoLoop" parent="Powerups" instance=ExtResource("6_p8j3e")]
-position = Vector2(320, 559)
-
-[node name="ChronoLoop2" parent="Powerups" instance=ExtResource("6_p8j3e")]
-position = Vector2(1089, 434)
-
 [node name="LifeUp" parent="Powerups" instance=ExtResource("5_txd80")]
 position = Vector2(708, 195)
 
 [node name="EnergyUp" parent="Powerups" instance=ExtResource("6_nen3b")]
 position = Vector2(711, 321)
 
+[node name="ChronoLoop" parent="Powerups" instance=ExtResource("6_p8j3e")]
+position = Vector2(1091, 439)
+
+[node name="ChronoLoop2" parent="Powerups" instance=ExtResource("6_p8j3e")]
+position = Vector2(320, 576)
+
 [node name="Player" parent="." instance=ExtResource("1_yknjj")]
 
 [node name="Player_Clones" type="Node2D" parent="."]
 
 [node name="UI" parent="." instance=ExtResource("3_f71h5")]
+
+[connection signal="input_pressed" from="Player" to="." method="_on_player_input_pressed"]

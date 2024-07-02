@@ -11,6 +11,7 @@ var type: CloneType
 var num_of_moves: int = 0
 
 @export var move_time: float
+@onready var player = get_node("../../Player") as Player
 @onready var tile_map = get_node("../../TileMap") as TileMap
 
 enum CloneType {
@@ -31,20 +32,24 @@ func _unhandled_key_input(_event):
 	if is_moving == false and is_controlled:
 		player_input()
 		move_clone(direction)
-		record_movement(direction)
+		if is_recording:
+			record_movement(direction)
 		
 func player_input():
-	if Input.is_action_just_pressed("Left"):
+	if Input.is_action_pressed("Left"):
 		direction = Vector2.LEFT
-	elif Input.is_action_just_pressed("Right"):
+	elif Input.is_action_pressed("Right"):
 		direction = Vector2.RIGHT
-	elif Input.is_action_just_pressed("Up"):
+	elif Input.is_action_pressed("Up"):
 		direction = Vector2.UP
-	elif Input.is_action_just_pressed("Down"):
+	elif Input.is_action_pressed("Down"):
 		direction = Vector2.DOWN
+		
+	if num_of_moves > 0:
+		num_of_moves -= 1
+		check_moves()
 
 func move_clone(dir: Vector2i):
-	#if num_of_moves > 0:
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
 	var target_tile: Vector2i = Vector2i(
 		current_tile.x + dir.x,
@@ -58,15 +63,21 @@ func move_clone(dir: Vector2i):
 	await tween.finished
 	is_moving = false
 
-	if type == CloneType.CHRONO_PHANTOM:
-		num_of_moves -= 1
-	#else:
-		#print("Can't Move!")
-
 func record_movement(dir):
 	recording.append(dir)
+	print(recording)
 
 func replay_movements():
 	for dir in recording:
 		await move_clone(dir)
 		#print(recording[i])
+		
+func check_moves():
+	if num_of_moves == 0:
+		is_controlled = false
+		var tween = create_tween()
+		tween.tween_property(self, "modulate:a", 0, 1).set_delay(0.4)
+		await tween.finished
+		print("BOOM!")
+		player.is_controlled = true
+		queue_free()

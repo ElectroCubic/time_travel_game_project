@@ -35,12 +35,16 @@ func player_input():
 	else:
 		is_move_key_pressed = false
 		
-	if Input.is_action_just_pressed("Phantom") and Globals.energy_charges>0:
+	if Input.is_action_just_pressed("Phantom") and Globals.energy_charges > 0:
 		Globals.energy_charges -= 1
 		powerUpActivated.emit(self,"Phantom")
-	elif Input.is_action_just_pressed("Bomb") and Globals.energy_charges>1:
+		
+	elif Input.is_action_just_pressed("Bomb") and Globals.energy_charges > 1:
 		Globals.energy_charges -= 2
 		powerUpActivated.emit(self,"Bomb")
+		
+	elif Input.is_action_just_pressed("Reset"):
+		pass
 
 func _unhandled_key_input(_event):
 	if is_moving == false:
