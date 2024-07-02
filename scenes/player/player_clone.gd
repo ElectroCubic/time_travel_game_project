@@ -23,7 +23,6 @@ func _ready():
 	if type == CloneType.CHRONO_LOOP:
 		$AnimatedSprite2D.play("Chrono_Loop_Idle")
 	elif type == CloneType.CHRONO_PHANTOM:
-		num_of_moves = 5
 		$AnimatedSprite2D.play("Chrono_Phantom_Idle")
 	elif type == CloneType.CHRONO_BOMB:
 		$AnimatedSprite2D.play("Chrono_Bomb_Idle")
@@ -45,24 +44,24 @@ func player_input():
 		direction = Vector2.DOWN
 
 func move_clone(dir: Vector2i):
-	if num_of_moves > 0:
-		var current_tile: Vector2i = tile_map.local_to_map(global_position)
-		var target_tile: Vector2i = Vector2i(
-			current_tile.x + dir.x,
-			current_tile.y + dir.y
-		)
-		var target_pos: Vector2 = tile_map.map_to_local(target_tile)
+	#if num_of_moves > 0:
+	var current_tile: Vector2i = tile_map.local_to_map(global_position)
+	var target_tile: Vector2i = Vector2i(
+		current_tile.x + dir.x,
+		current_tile.y + dir.y
+	)
+	var target_pos: Vector2 = tile_map.map_to_local(target_tile)
 
-		is_moving = true
-		var tween = create_tween()
-		tween.tween_property(self, "global_position", target_pos, move_time).set_trans(Tween.TRANS_SINE)
-		await tween.finished
-		is_moving = false
+	is_moving = true
+	var tween = create_tween()
+	tween.tween_property(self, "global_position", target_pos, move_time).set_trans(Tween.TRANS_SINE)
+	await tween.finished
+	is_moving = false
 
-		if type == CloneType.CHRONO_PHANTOM:
-			num_of_moves -= 1
-	else:
-		print("Can't Move!")
+	if type == CloneType.CHRONO_PHANTOM:
+		num_of_moves -= 1
+	#else:
+		#print("Can't Move!")
 
 func record_movement(dir):
 	recording.append(dir)

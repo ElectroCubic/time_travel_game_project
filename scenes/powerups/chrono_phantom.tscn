@@ -1,7 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://q54o8v44xwml"]
+[gd_scene load_steps=4 format=3 uid="uid://ulhdp7guxux7"]
 
 [ext_resource type="Texture2D" uid="uid://cq2n7lw14gryh" path="res://graphics/powerups/environment_08.png" id="1_5wk21"]
-[ext_resource type="Script" path="res://scenes/powerups/chrono_phantom.gd" id="1_i1nnx"]
+
+[sub_resource type="GDScript" id="GDScript_jx7n5"]
+script/source = "extends Area2D
+
+class_name ChronoPhantom
+
+signal powerUpActivated(activator, powerupRef)
+
+var is_active: bool = false
+@onready var changedImage = preload(\"res://graphics/powerups/environment_10.png\")
+
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		is_active = true
+		$Sprite2D.texture = changedImage
+		
+	powerUpActivated.emit(body,self)
+"
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gm5kr"]
 radius = 20.0998
@@ -9,7 +26,7 @@ radius = 20.0998
 [node name="ChronoPhantom" type="Area2D"]
 collision_layer = 16
 collision_mask = 3
-script = ExtResource("1_i1nnx")
+script = SubResource("GDScript_jx7n5")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -4)

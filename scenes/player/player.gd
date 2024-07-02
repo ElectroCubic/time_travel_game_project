@@ -3,6 +3,7 @@ extends CharacterBody2D
 class_name Player
 
 signal input_pressed
+signal powerUpActivated(activator, powerupRef)
 
 var direction: Vector2
 var target_pos: Vector2
@@ -33,7 +34,14 @@ func player_input():
 		is_move_key_pressed = true
 	else:
 		is_move_key_pressed = false
-	
+		
+	if Input.is_action_just_pressed("Phantom") and Globals.energy_charges>0:
+		Globals.energy_charges -= 1
+		powerUpActivated.emit(self,"Phantom")
+	elif Input.is_action_just_pressed("Bomb") and Globals.energy_charges>1:
+		Globals.energy_charges -= 2
+		powerUpActivated.emit(self,"Bomb")
+
 func _unhandled_key_input(_event):
 	if is_moving == false:
 		player_input()

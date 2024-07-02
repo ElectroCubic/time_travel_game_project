@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://bnng40c2b2831"]
+[gd_scene load_steps=11 format=3 uid="uid://bnng40c2b2831"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_8oeji"]
 [ext_resource type="PackedScene" uid="uid://bf6b0yn36fext" path="res://scenes/player/player.tscn" id="1_yknjj"]
 [ext_resource type="Texture2D" uid="uid://2iyke5gse6qw" path="res://graphics/tileset/sokoban_tilesheet@2.png" id="2_u8rf3"]
 [ext_resource type="PackedScene" uid="uid://cn8n5ftkg3lhh" path="res://ui/ui.tscn" id="3_f71h5"]
-[ext_resource type="PackedScene" uid="uid://q54o8v44xwml" path="res://scenes/powerups/chrono_phantom.tscn" id="4_8vbrl"]
+[ext_resource type="PackedScene" uid="uid://b20qjild2afy5" path="res://scenes/powerups/life_up.tscn" id="5_txd80"]
+[ext_resource type="PackedScene" uid="uid://biemqdhxwhn52" path="res://scenes/powerups/energy_up.tscn" id="6_nen3b"]
 [ext_resource type="PackedScene" uid="uid://dlxqeltamfdal" path="res://scenes/powerups/chrono_loop.tscn" id="6_p8j3e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b6a1i"]
@@ -145,8 +146,11 @@ position = Vector2(320, 559)
 [node name="ChronoLoop2" parent="Powerups" instance=ExtResource("6_p8j3e")]
 position = Vector2(1089, 434)
 
-[node name="ChronoPhantom" parent="Powerups" instance=ExtResource("4_8vbrl")]
-position = Vector2(61, 322)
+[node name="LifeUp" parent="Powerups" instance=ExtResource("5_txd80")]
+position = Vector2(708, 195)
+
+[node name="EnergyUp" parent="Powerups" instance=ExtResource("6_nen3b")]
+position = Vector2(711, 321)
 
 [node name="Player" parent="." instance=ExtResource("1_yknjj")]
 

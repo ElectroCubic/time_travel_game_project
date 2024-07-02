@@ -1,6 +1,6 @@
 extends Area2D
 
-class_name LifeUP
+class_name EnergyUP
 
 signal powerUpActivated(activator,powerUpRef)
 
