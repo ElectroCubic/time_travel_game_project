@@ -24,6 +24,11 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	
 	elif powerupRef is EnergyUP and activator is Player:
 		Globals.energy_charges += 1
+	
+	elif powerupRef is Shield and activator is Player:
+		Globals.vulnerability = false
+		await get_tree().create_timer(7).timeout
+		Globals.vulnerability = true
 		
 	elif powerupRef is ChronoLoop and activator is Player:
 		if not powerupRef.current_clone:

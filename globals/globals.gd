@@ -12,3 +12,7 @@ var energy_charges: int = 5:
 		energy_charges = value
 		stat_change.emit()
 
+var vulnerability = true:
+	set(value):
+		vulnerability = value
+		stat_change.emit()
