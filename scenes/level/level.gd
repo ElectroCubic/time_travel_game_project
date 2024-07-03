@@ -67,7 +67,6 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null):
 		cloneTemp.position = player.global_position
 		print(cloneTemp.recording)
 		cloneTemp.direction = player.direction
-		#cloneTemp.recording.append(player.direction)
 		cloneTemp.is_recording = true
 		print("Recording")
 		

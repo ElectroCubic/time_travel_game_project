@@ -1,11 +1,12 @@
 extends CanvasLayer
 
 @onready var livesCounterlabel: Label = $LivesCounter/HBoxContainer/Label
-@onready var energychargelabel: Label = $EnergyCharges/HBoxContainer/Label
+@onready var texture_progress_bar = $EnergyBar/TextureProgressBar
+
 
 func updateCounter():
 	livesCounterlabel.text = "Lives: " + str(Globals.player_lives)
-	energychargelabel.text = "Charges: " + str(Globals.energy_charges)
+	texture_progress_bar.value = Globals.energy_charges
 	
 func _ready():
 	Globals.connect("stat_change", update_stat_label)

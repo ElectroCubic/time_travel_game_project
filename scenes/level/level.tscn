@@ -16,6 +16,7 @@ texture_region_size = Vector2i(128, 128)
 3:0/0 = 0
 4:0/0 = 0
 5:0/0 = 0
+5:0/0/custom_data_0 = true
 6:0/0 = 0
 7:0/0 = 0
 8:0/0 = 0
@@ -116,6 +117,8 @@ texture_region_size = Vector2i(128, 128)
 
 [sub_resource type="TileSet" id="TileSet_3ivpr"]
 tile_size = Vector2i(128, 128)
+custom_data_layer_0/name = "Collidable"
+custom_data_layer_0/type = 1
 sources/1 = SubResource("TileSetAtlasSource_b6a1i")
 
 [sub_resource type="GDScript" id="GDScript_mimid"]

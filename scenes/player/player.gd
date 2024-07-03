@@ -69,4 +69,10 @@ func get_target_pos(dir: Vector2i):
 		current_tile.x + dir.x,
 		current_tile.y + dir.y
 	)
-	target_pos = tile_map.map_to_local(target_tile)
+	
+	var tile_data = tile_map.get_cell_tile_data(0,target_tile)
+	
+	var custom_data = tile_data.get_custom_data_by_layer_id(0)
+	
+	if not custom_data == true:
+		target_pos = tile_map.map_to_local(target_tile)

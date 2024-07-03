@@ -65,13 +65,12 @@ func move_clone(dir: Vector2i):
 
 func record_movement(dir):
 	recording.append(dir)
-	print(recording)
+	#print(recording)
 
 func replay_movements():
 	for dir in recording:
 		await move_clone(dir)
-		#print(recording[i])
-		
+
 func check_moves():
 	if num_of_moves == 0:
 		is_controlled = false

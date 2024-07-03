@@ -1,11 +1,9 @@
 [gd_scene load_steps=4 format=3 uid="uid://cn8n5ftkg3lhh"]
 
 [ext_resource type="Script" path="res://ui/ui.gd" id="1_5tboc"]
+[ext_resource type="Texture2D" uid="uid://ba8kyedqaamen" path="res://graphics/ui/Solid_White_Block_11zon.png" id="2_kdtd1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1lkh5"]
-font_size = 40
-
-[sub_resource type="LabelSettings" id="LabelSettings_hp7x8"]
 font_size = 40
 
 [node name="UI" type="CanvasLayer"]
@@ -34,25 +32,19 @@ layout_mode = 2
 text = "Lives: "
 label_settings = SubResource("LabelSettings_1lkh5")
 
-[node name="EnergyCharges" type="Control" parent="."]
+[node name="EnergyBar" type="Control" parent="."]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="EnergyCharges"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.05
-anchor_top = 0.076
-anchor_right = 0.2
-anchor_bottom = 0.212
+anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Label" type="Label" parent="EnergyCharges/HBoxContainer"]
-layout_mode = 2
-text = "Charges: "
-label_settings = SubResource("LabelSettings_hp7x8")
+[node name="TextureProgressBar" type="TextureProgressBar" parent="EnergyBar"]
+layout_mode = 1
+offset_left = 57.0
+offset_top = 106.0
+offset_right = 414.0
+offset_bottom = 140.0
+max_value = 10.0
+value = 5.0
+nine_patch_stretch = true
+texture_progress = ExtResource("2_kdtd1")
