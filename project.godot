@@ -78,6 +78,7 @@ Reset={
 2d_physics/layer_4="Enemies"
 2d_physics/layer_5="PowerUps"
 2d_physics/layer_6="Items and Zones"
+2d_physics/layer_7="Obstacle"
 
 [rendering]
 

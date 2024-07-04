@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnng40c2b2831"]
+[gd_scene load_steps=13 format=3 uid="uid://bnng40c2b2831"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_8oeji"]
 [ext_resource type="PackedScene" uid="uid://bf6b0yn36fext" path="res://scenes/player/player.tscn" id="1_yknjj"]
@@ -7,7 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://b20qjild2afy5" path="res://scenes/powerups/life_up.tscn" id="5_txd80"]
 [ext_resource type="PackedScene" uid="uid://6n737koyggf0" path="res://scenes/powerups/shield.tscn" id="6_l6bup"]
 [ext_resource type="PackedScene" uid="uid://biemqdhxwhn52" path="res://scenes/powerups/energy_up.tscn" id="6_nen3b"]
-[ext_resource type="PackedScene" uid="uid://dlxqeltamfdal" path="res://scenes/powerups/chrono_loop.tscn" id="6_p8j3e"]
+[ext_resource type="PackedScene" uid="uid://cpbkrku8p5as0" path="res://scenes/projectiles/explosives/landmine.tscn" id="8_6yvy2"]
+[ext_resource type="PackedScene" uid="uid://dts1ffib41vet" path="res://scenes/projectiles/explosives/missile.tscn" id="8_xqr6y"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b6a1i"]
 texture = ExtResource("2_u8rf3")
@@ -150,18 +151,20 @@ position = Vector2(708, 195)
 [node name="EnergyUp" parent="Powerups" instance=ExtResource("6_nen3b")]
 position = Vector2(711, 321)
 
-[node name="ChronoLoop" parent="Powerups" instance=ExtResource("6_p8j3e")]
-position = Vector2(1091, 439)
-
-[node name="ChronoLoop2" parent="Powerups" instance=ExtResource("6_p8j3e")]
-position = Vector2(320, 576)
-
 [node name="Shield" parent="Powerups" instance=ExtResource("6_l6bup")]
-position = Vector2(447, 315)
+position = Vector2(954, 187)
 
 [node name="Player" parent="." instance=ExtResource("1_yknjj")]
 
 [node name="Player_Clones" type="Node2D" parent="."]
+
+[node name="Obstacles" type="Node2D" parent="."]
+
+[node name="Landmine" parent="Obstacles" instance=ExtResource("8_6yvy2")]
+position = Vector2(957, 314)
+
+[node name="Missile" parent="Obstacles" instance=ExtResource("8_xqr6y")]
+position = Vector2(-594, 195)
 
 [node name="UI" parent="." instance=ExtResource("3_f71h5")]
 

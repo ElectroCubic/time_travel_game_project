@@ -20,7 +20,7 @@ func _ready():
 func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	
 	if powerupRef is LifeUP and activator is Player:
-		Globals.player_lives += 1
+		Globals.health += 1
 	
 	elif powerupRef is EnergyUP and activator is Player:
 		Globals.energy_charges += 1

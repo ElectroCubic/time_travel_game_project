@@ -9,7 +9,7 @@ font_size = 40
 [node name="UI" type="CanvasLayer"]
 script = ExtResource("1_5tboc")
 
-[node name="LivesCounter" type="Control" parent="."]
+[node name="Health" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -17,7 +17,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="LivesCounter"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Health"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -27,9 +27,8 @@ anchor_bottom = 0.1
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="LivesCounter/HBoxContainer"]
+[node name="Label" type="Label" parent="Health/HBoxContainer"]
 layout_mode = 2
-text = "Lives: "
 label_settings = SubResource("LabelSettings_1lkh5")
 
 [node name="EnergyBar" type="Control" parent="."]
