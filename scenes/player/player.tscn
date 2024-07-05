@@ -92,7 +92,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwu1c"]
-size = Vector2(54, 96)
+size = Vector2(54, 48)
 
 [sub_resource type="Animation" id="Animation_a3dm1"]
 resource_name = "Back Walk"
@@ -254,3 +254,7 @@ libraries = {
 "": SubResource("AnimationLibrary_80e4s")
 }
 autoplay = "Idle_Front"
+
+[node name="HitTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

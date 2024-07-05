@@ -3,9 +3,11 @@
 [ext_resource type="Script" path="res://scenes/projectiles/explosives/landmine.gd" id="1_0qh4b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qy4xc"]
-size = Vector2(28, 26)
+size = Vector2(36, 34)
 
 [node name="Landmine" type="Area2D"]
+collision_layer = 64
+collision_mask = 75
 script = ExtResource("1_0qh4b")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]

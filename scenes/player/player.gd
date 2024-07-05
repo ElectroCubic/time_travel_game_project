@@ -12,7 +12,7 @@ var is_controlled: bool = true
 var is_move_key_pressed: bool = false
 
 @export var move_time: float 
-@onready var anim_sprite = $AnimatedSprite2D
+@onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var anim = $AnimationPlayer
 @onready var tile_map = get_node("../TileMap") as TileMap
 
@@ -20,6 +20,8 @@ func _ready():
 	anim.play("Idle_Front")
 	
 func player_input():
+	# Player Movement Controls
+	
 	if Input.is_action_pressed("Left"):
 		direction = Vector2.LEFT
 		is_move_key_pressed = true
@@ -34,6 +36,8 @@ func player_input():
 		is_move_key_pressed = true
 	else:
 		is_move_key_pressed = false
+		
+	# Player Abilities
 		
 	if Input.is_action_just_pressed("Phantom") and Globals.energy_charges > 0:
 		Globals.energy_charges -= 1
@@ -76,3 +80,10 @@ func get_target_pos(dir: Vector2i):
 	
 	if not custom_data == true:
 		target_pos = tile_map.map_to_local(target_tile)
+
+func hit_timer_activate():
+	Globals.vulnerability = false
+	$HitTimer.start()
+
+func _on_hit_timer_timeout():
+	Globals.vulnerability = true

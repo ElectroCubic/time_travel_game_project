@@ -7,7 +7,9 @@
 size = Vector2(57, 63)
 
 [node name="Shield" type="Area2D"]
+collision_layer = 16
 script = ExtResource("1_q6u2h")
+shield_duration = 7
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(3, 2)

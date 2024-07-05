@@ -1,20 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://dts1ffib41vet"]
+[gd_scene load_steps=5 format=3 uid="uid://dts1ffib41vet"]
 
 [ext_resource type="Script" path="res://scenes/projectiles/explosives/missile.gd" id="1_wdh6k"]
+[ext_resource type="Texture2D" uid="uid://2iyke5gse6qw" path="res://graphics/tileset/sokoban_tilesheet@2.png" id="2_65jhw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pcb1l"]
 size = Vector2(94, 14)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqdbs"]
+atlas = ExtResource("2_65jhw")
+region = Rect2(0, 384, 128, 128)
+
 [node name="Missile" type="Area2D"]
+collision_layer = 64
+collision_mask = 79
 script = ExtResource("1_wdh6k")
-SPEED = 500
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_pcb1l")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 scale = Vector2(0.5, 0.5)
-color = Color(0, 0.713726, 1, 1)
+color = Color(0, 0.184314, 1, 1)
 polygon = PackedVector2Array(-82, -28, -2.65987, -28, -2, -56, 18, -28, 98, -28, 141, -2, 100, 21, 18, 21, 0, 49, -1, 21, -82, 21, -104, 47, -105, -53)
+
+[node name="MissileTarget" type="Sprite2D" parent="."]
+texture = SubResource("AtlasTexture_aqdbs")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

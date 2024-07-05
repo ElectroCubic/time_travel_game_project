@@ -2,24 +2,27 @@
 
 [ext_resource type="Script" path="res://scenes/projectiles/lasers/static_laser.gd" id="1_dakxv"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1po3i"]
-size = Vector2(174, 104)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hyovs"]
+size = Vector2(176, 94)
 
 [node name="StaticLaser" type="StaticBody2D"]
 collision_layer = 64
 collision_mask = 79
 script = ExtResource("1_dakxv")
+laser_active = true
 
-[node name="Polygon2D2" type="Polygon2D" parent="."]
-visible = false
-position = Vector2(-383, -10)
-scale = Vector2(2.44004, 1)
-color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(182, -30, 181, 20, 1166, 20, 1168, -28, 259.68, -29.8424, 201.857, -29.9597)
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(1500, 0)
+collision_mask = 79
+collide_with_areas = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_1po3i")
+[node name="Line2D" type="Line2D" parent="RayCast2D"]
+width = 30.0
+default_color = Color(1, 0, 0, 1)
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 color = Color(0.207843, 0.207843, 0.207843, 1)
 polygon = PackedVector2Array(-108, -62, 102, -62, 176, 1, 103, 73, -110, 73)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hyovs")

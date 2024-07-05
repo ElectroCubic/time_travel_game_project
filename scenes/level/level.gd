@@ -6,6 +6,7 @@ class_name Level
 @onready var player = $Player as Player
 @onready var playerClone = preload("res://scenes/player/player_clone.tscn")
 
+var shield_active: bool = false
 var num_of_moves: int = 0
 var cloneRef: PlayerClone = null
 
@@ -14,8 +15,13 @@ func _ready():
 	player.connect("powerUpActivated", _on_player_activate_powerup)
 	
 	var powerups = get_node("Powerups").get_children()
+	var obstacles = get_node("Obstacles").get_children()
+	
 	for powerup in powerups:
 		powerup.connect("powerUpActivated", _on_player_activate_powerup)
+		
+	for obstacle in obstacles:
+		obstacle.connect("obstacleCollided", _on_obstacle_collided)
 	
 func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	
@@ -26,9 +32,9 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 		Globals.energy_charges += 1
 	
 	elif powerupRef is Shield and activator is Player:
-		Globals.vulnerability = false
-		await get_tree().create_timer(7).timeout
-		Globals.vulnerability = true
+		shield_active = true
+		await get_tree().create_timer(powerupRef.shield_duration).timeout
+		shield_active = false
 		
 	elif powerupRef is ChronoLoop and activator is Player:
 		if not powerupRef.current_clone:
@@ -62,7 +68,7 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	else:
 		print("Not a signal")
 			
-func spawn_clone(type: PlayerClone.CloneType, powerupRef = null):
+func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 	var cloneTemp: PlayerClone = playerClone.instantiate()
 	
 	if type == PlayerClone.CloneType.CHRONO_LOOP:
@@ -97,7 +103,7 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null):
 	var node = get_node("Player_Clones")
 	node.add_child.bind(cloneTemp).call_deferred()
 
-func _on_player_input_pressed():
+func _on_player_input_pressed() -> void:
 	if num_of_moves > 0:
 		num_of_moves -= 1
 		print(num_of_moves)
@@ -106,6 +112,19 @@ func _on_player_input_pressed():
 			tween.tween_property(cloneRef, "modulate:a", 0, 1)
 			tween.tween_callback(delete_clone)
 
-func delete_clone():
+func delete_clone() -> void:
 	cloneRef.queue_free()
 	cloneRef = null
+
+func _on_obstacle_collided(collider = null, obstacle: Obstacle = null) -> void:
+	
+	if collider is Player and obstacle.damage > 0:
+		player_hit(obstacle.damage)
+	
+func player_hit(damage: int):
+	if Globals.vulnerability == true and not shield_active:
+		Globals.health -= damage
+		player.hit_timer_activate()
+		
+		if Globals.health <= 0:
+			print("YoU Ded")

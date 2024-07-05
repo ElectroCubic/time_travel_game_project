@@ -2,11 +2,13 @@ extends Obstacle
 
 class_name Landmine
 
-signal obstacleCollided(collider, obstacle: Obstacle)
+@export var landmine_dmg: int = 1
 
-@onready var landmine = $"." as Landmine
+func _ready():
+	damage = landmine_dmg
 
 func _on_body_entered(body):
 	if body.name == "Player":
 		obstacleCollided.emit(body, self)
 	queue_free()
+
