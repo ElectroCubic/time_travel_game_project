@@ -76,7 +76,6 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 		powerupRef.current_clone = cloneTemp
 		cloneTemp.type = type
 		cloneTemp.position = player.global_position
-		print(cloneTemp.recording)
 		cloneTemp.direction = player.direction
 		cloneTemp.is_recording = true
 		print("Recording")
@@ -128,3 +127,4 @@ func player_hit(damage: int):
 		
 		if Globals.health <= 0:
 			print("YoU Ded")
+

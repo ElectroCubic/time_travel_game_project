@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://crhgnwuhcrx4a"
-path="res://.godot/imported/Bomb_1.png-7fe24f0241a74041d83889f99983e10c.ctex"
+uid="uid://bdxdboyp061b2"
+path="res://.godot/imported/Bomb_1.png-b02d8af56d3b1264a937d9ab3f6a9526.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://graphics/player/player_clones/Bomb_1.png"
-dest_files=["res://.godot/imported/Bomb_1.png-7fe24f0241a74041d83889f99983e10c.ctex"]
+source_file="res://graphics/enemies/Bomb_1.png"
+dest_files=["res://.godot/imported/Bomb_1.png-b02d8af56d3b1264a937d9ab3f6a9526.ctex"]
 
 [params]
 

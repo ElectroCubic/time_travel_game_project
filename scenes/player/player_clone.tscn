@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://7ccyrl0jhh6b"]
 
 [ext_resource type="Script" path="res://scenes/player/player_clone.gd" id="1_vue14"]
-[ext_resource type="Texture2D" uid="uid://bdxdboyp061b2" path="res://graphics/player/player_clones/Bomb_1.png" id="2_jihty"]
+[ext_resource type="Texture2D" uid="uid://bdxdboyp061b2" path="res://graphics/enemies/Bomb_1.png" id="2_jihty"]
 [ext_resource type="Texture2D" uid="uid://d2om3gtsajup8" path="res://graphics/player/player_clones/Front Walking 1.png" id="3_mufk4"]
 [ext_resource type="Texture2D" uid="uid://bi0bf2eo11uvy" path="res://graphics/player/player_clones/Phantom_1.png" id="4_sr1yg"]
 
