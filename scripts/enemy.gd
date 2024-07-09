@@ -2,7 +2,7 @@ extends Node2D
 
 class_name Enemy
 
-signal enemy_collided(collider, enemy: Enemy)
+signal enemyCollided(collider, enemy: Enemy)
 
 var direction: Vector2 = Vector2.ZERO
 var speed: int = 0
@@ -13,9 +13,6 @@ var is_active: bool = true
 var is_colliding: bool = false
 var is_vulnerable: bool = true
 var is_chasing: bool = false
-
-func move_enemy() -> void:
-	pass
 
 func enemy_hit() -> void:
 	pass

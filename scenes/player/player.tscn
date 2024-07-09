@@ -233,10 +233,10 @@ _data = {
 
 [node name="Player" type="CharacterBody2D"]
 position = Vector2(64, 64)
-collision_mask = 62
+collision_mask = 126
 motion_mode = 1
 script = ExtResource("1_pelrv")
-move_time = 0.4
+MAX_SPEED = 500
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.1, 0.1)
@@ -247,7 +247,7 @@ animation = &"Front Walk"
 shape = SubResource("RectangleShape2D_jwu1c")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.8, 0.8)
+zoom = Vector2(0.6, 0.6)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

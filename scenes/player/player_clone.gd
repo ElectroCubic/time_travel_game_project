@@ -28,8 +28,8 @@ func _ready():
 	elif type == CloneType.CHRONO_BOMB:
 		$AnimatedSprite2D.play("Chrono_Bomb_Idle")
 		
-func _unhandled_key_input(_event):
-	if is_moving == false and is_controlled:
+func _unhandled_key_input(_event):			# For Chrono Bomb Only
+	if is_controlled and not is_moving:
 		player_input()
 		move_clone(direction)
 		if is_recording:
@@ -71,7 +71,7 @@ func replay_movements():
 	for dir in recording:
 		await move_clone(dir)
 
-func check_moves():
+func check_moves():					# For Chrono Bomb Only
 	if num_of_moves == 0:
 		is_controlled = false
 		var tween = create_tween()

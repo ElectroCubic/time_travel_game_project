@@ -16,12 +16,16 @@ func _ready():
 	
 	var powerups = get_node("Powerups").get_children()
 	var obstacles = get_node("Obstacles").get_children()
+	var enemies = get_node("Enemies").get_children()
 	
 	for powerup in powerups:
 		powerup.connect("powerUpActivated", _on_player_activate_powerup)
 		
 	for obstacle in obstacles:
 		obstacle.connect("obstacleCollided", _on_obstacle_collided)
+		
+	for enemy in enemies:
+		enemy.connect("enemyCollided", _on_enemy_collided)
 	
 func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	
@@ -74,8 +78,6 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 	if type == PlayerClone.CloneType.CHRONO_LOOP:
 		cloneTemp.is_controlled = true
 		powerupRef.current_clone = cloneTemp
-		cloneTemp.type = type
-		cloneTemp.position = player.global_position
 		cloneTemp.direction = player.direction
 		cloneTemp.is_recording = true
 		print("Recording")
@@ -89,14 +91,17 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 	elif type == PlayerClone.CloneType.CHRONO_PHANTOM:
 		cloneTemp.position = player.global_position
 		cloneTemp.type = type
+		#cloneTemp.direction = player.direction
+		#player.is_controlled = true
+		#cloneTemp.is_controlled = false
 		cloneRef = cloneTemp
 		num_of_moves = 5
 	
 	elif type == PlayerClone.CloneType.CHRONO_BOMB:
-		player.is_controlled = false
-		cloneTemp.is_controlled = true
 		cloneTemp.position = player.global_position
 		cloneTemp.type = type
+		player.is_controlled = false
+		cloneTemp.is_controlled = true
 		cloneTemp.num_of_moves = 6
 		
 	var node = get_node("Player_Clones")
@@ -128,3 +133,7 @@ func player_hit(damage: int):
 		if Globals.health <= 0:
 			print("YoU Ded")
 
+func _on_enemy_collided(collider = null, enemy: Enemy = null) -> void:
+	
+	if collider is Player and enemy is HeavyBot:
+		player_hit(enemy.damage)
