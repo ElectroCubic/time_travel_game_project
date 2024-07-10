@@ -7,7 +7,7 @@
 size = Vector2(50, 52)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3avye"]
-radius = 443.0
+radius = 575.0
 
 [node name="EnemyRobot" type="Area2D"]
 collision_layer = 8
@@ -21,15 +21,21 @@ texture = ExtResource("1_ax7k4")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_7m6lp")
 
-[node name="HitTimer" type="Timer" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(0, 575)
+collision_mask = 67
 
 [node name="PlayerDetection" type="Area2D" parent="."]
-collision_layer = 8
+collision_layer = 32
 collision_mask = 67
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetection"]
 shape = SubResource("CircleShape2D_3avye")
 
+[node name="CooldownTimer" type="Timer" parent="."]
+wait_time = 3.0
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_entered" from="PlayerDetection" to="." method="_on_player_detection_body_entered"]
 [connection signal="body_exited" from="PlayerDetection" to="." method="_on_player_detection_body_exited"]
+[connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]

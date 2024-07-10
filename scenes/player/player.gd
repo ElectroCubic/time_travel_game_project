@@ -24,10 +24,11 @@ func _process(delta):
 	if is_controlled and not is_moving:
 		player_input()
 		get_target_pos(direction)
-		
+	
+	if not is_controlled and is_move_key_pressed:
+		input_pressed.emit()
+	
 	move_player(delta)
-
-	#prints(direction, target_pos, global_position)
 
 func player_input():
 	# Player Movement Controls
@@ -65,8 +66,8 @@ func player_input():
 		Globals.energy_charges -= 2
 		powerUpActivated.emit(self,"Bomb")
 	
-	#elif Input.is_action_just_pressed("Reset"):
-		#print("Reset")
+	elif Input.is_action_just_pressed("Reset"):
+		print("Reset")
 
 func get_target_pos(dir: Vector2i):
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)

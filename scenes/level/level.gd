@@ -43,6 +43,7 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	elif powerupRef is ChronoLoop and activator is Player:
 		if not powerupRef.current_clone:
 			player.is_controlled = false
+			await get_tree().create_timer(0.1).timeout
 			await activator.input_pressed
 			spawn_clone(PlayerClone.CloneType.CHRONO_LOOP, powerupRef)
 
@@ -74,6 +75,8 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 			
 func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 	var cloneTemp: PlayerClone = playerClone.instantiate()
+	cloneTemp.position = player.global_position
+	cloneTemp.type = type
 	
 	if type == PlayerClone.CloneType.CHRONO_LOOP:
 		cloneTemp.is_controlled = true
@@ -89,17 +92,10 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 				currentClone.process_mode = Node.PROCESS_MODE_DISABLED
 				
 	elif type == PlayerClone.CloneType.CHRONO_PHANTOM:
-		cloneTemp.position = player.global_position
-		cloneTemp.type = type
-		#cloneTemp.direction = player.direction
-		#player.is_controlled = true
-		#cloneTemp.is_controlled = false
 		cloneRef = cloneTemp
 		num_of_moves = 5
 	
 	elif type == PlayerClone.CloneType.CHRONO_BOMB:
-		cloneTemp.position = player.global_position
-		cloneTemp.type = type
 		player.is_controlled = false
 		cloneTemp.is_controlled = true
 		cloneTemp.num_of_moves = 6
@@ -121,7 +117,7 @@ func delete_clone() -> void:
 	cloneRef = null
 
 func _on_obstacle_collided(collider = null, obstacle: Obstacle = null) -> void:
-	
+
 	if collider is Player and obstacle.damage > 0:
 		player_hit(obstacle.damage)
 	
@@ -134,6 +130,9 @@ func player_hit(damage: int):
 			print("YoU Ded")
 
 func _on_enemy_collided(collider = null, enemy: Enemy = null) -> void:
-	
 	if collider is Player and enemy is HeavyBot:
+		player_hit(enemy.damage)
+	elif collider is Player and enemy is DroneBot:
+		player_hit(enemy.damage)
+	elif collider is Player and enemy is RollerBot:
 		player_hit(enemy.damage)

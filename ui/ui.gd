@@ -3,7 +3,6 @@ extends CanvasLayer
 @onready var healthlabel: Label = $Health/HBoxContainer/Label
 @onready var texture_progress_bar = $EnergyBar/TextureProgressBar
 @onready var path = $Path
-@onready var enemybot: HeavyBot = $"../Enemies/EnemyRobot"
 
 func updateCounter():
 	healthlabel.text = "Health: " + str(Globals.health)
@@ -16,5 +15,5 @@ func _ready():
 func update_stat_label():
 	updateCounter()
 	
-func _process(_delta):
-	path.text = "Array: " + str(enemybot.current_path)
+#func _process(_delta):
+	#path.text = "Array: " + str(Globals.current_path)

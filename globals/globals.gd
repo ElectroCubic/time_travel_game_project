@@ -16,4 +16,3 @@ var vulnerability = true:
 	set(value):
 		vulnerability = value
 		stat_change.emit()
-
