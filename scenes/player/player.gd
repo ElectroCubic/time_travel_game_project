@@ -91,7 +91,7 @@ func move_player(delta):
 		is_moving = false
 	
 	# Smooth Grid Movement but kinda unreliable
-	#
+	
 	#if not is_moving and is_move_key_pressed:
 		#is_moving = true
 		#target_direction = direction.normalized()

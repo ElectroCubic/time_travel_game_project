@@ -9,7 +9,7 @@ class_name RollerBot
 
 var clock_wise_dir: bool = true
 var target_pos: Vector2
-var current_index: int = 0
+var current_index: int = 1
 var no_of_points: int = 0
 
 func _ready():
@@ -35,20 +35,24 @@ func move_enemy(delta) -> void:
 		update_next_target_pos()
 
 func update_next_target_pos():
+	print(current_index)
 	is_moving = true
+	
+	if current_index < no_of_points:
+		target_pos = mark_points_array[current_index].position
+	
 	if clock_wise_dir:
-		if current_index < no_of_points:
-			target_pos = mark_points_array[current_index].position
+		if current_index < (no_of_points - 1):
 			current_index += 1
 		else:
 			current_index = 0
 	else:
-		if current_index >= 0 and current_index < no_of_points:
-			target_pos = mark_points_array[current_index].position
+		if current_index > 0:
 			current_index -= 1
 		else:
-			current_index = no_of_points - 1
-			
+			current_index = (no_of_points - 1)
+	
+
 func get_direction_to(pos: Vector2) -> Vector2:
 	return global_position.direction_to(pos)
 
@@ -71,3 +75,4 @@ func check_player_presence():
 func _on_body_entered(body):
 	if body.name == "Player":
 		enemyCollided.emit(body,self)
+		queue_free()

@@ -7,8 +7,6 @@ class_name Level
 @onready var playerClone = preload("res://scenes/player/player_clone.tscn")
 
 var shield_active: bool = false
-var num_of_moves: int = 0
-var cloneRef: PlayerClone = null
 
 func _ready():
 	player.is_controlled = true
@@ -92,8 +90,7 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 				currentClone.process_mode = Node.PROCESS_MODE_DISABLED
 				
 	elif type == PlayerClone.CloneType.CHRONO_PHANTOM:
-		cloneRef = cloneTemp
-		num_of_moves = 5
+		cloneTemp.num_of_moves = 5
 	
 	elif type == PlayerClone.CloneType.CHRONO_BOMB:
 		player.is_controlled = false
@@ -102,19 +99,6 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 		
 	var node = get_node("Player_Clones")
 	node.add_child.bind(cloneTemp).call_deferred()
-
-func _on_player_input_pressed() -> void:
-	if num_of_moves > 0:
-		num_of_moves -= 1
-		print(num_of_moves)
-		if num_of_moves == 0:
-			var tween = create_tween()
-			tween.tween_property(cloneRef, "modulate:a", 0, 1)
-			tween.tween_callback(delete_clone)
-
-func delete_clone() -> void:
-	cloneRef.queue_free()
-	cloneRef = null
 
 func _on_obstacle_collided(collider = null, obstacle: Obstacle = null) -> void:
 

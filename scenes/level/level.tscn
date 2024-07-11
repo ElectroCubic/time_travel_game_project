@@ -1,13 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bnng40c2b2831"]
+[gd_scene load_steps=10 format=3 uid="uid://bnng40c2b2831"]
 
 [ext_resource type="Script" path="res://scenes/level/level.gd" id="1_8oeji"]
 [ext_resource type="PackedScene" uid="uid://bf6b0yn36fext" path="res://scenes/player/player.tscn" id="1_yknjj"]
 [ext_resource type="Texture2D" uid="uid://2iyke5gse6qw" path="res://graphics/tileset/sokoban_tilesheet@2.png" id="2_u8rf3"]
 [ext_resource type="PackedScene" uid="uid://cn8n5ftkg3lhh" path="res://ui/ui.tscn" id="3_f71h5"]
 [ext_resource type="Script" path="res://scenes/level/TileMap.gd" id="3_icxov"]
-[ext_resource type="PackedScene" uid="uid://o5jqrffn2qdw" path="res://scenes/enemies/drone.tscn" id="5_53b3l"]
-[ext_resource type="PackedScene" uid="uid://b4f58rjvrott3" path="res://scenes/enemies/roller_bot.tscn" id="5_gterx"]
-[ext_resource type="PackedScene" uid="uid://63s1ofr7rbln" path="res://scenes/enemies/enemy_robot.tscn" id="5_jk84r"]
+[ext_resource type="PackedScene" uid="uid://dlxqeltamfdal" path="res://scenes/powerups/chrono_loop.tscn" id="5_pgd63"]
 [ext_resource type="PackedScene" uid="uid://6n737koyggf0" path="res://scenes/powerups/shield.tscn" id="6_l6bup"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b6a1i"]
@@ -352,39 +350,32 @@ metadata/_edit_lock_ = true
 [node name="Shield" parent="Powerups" instance=ExtResource("6_l6bup")]
 position = Vector2(960, 320)
 
+[node name="ChronoLoop" parent="Powerups" instance=ExtResource("5_pgd63")]
+position = Vector2(1088, 704)
+
 [node name="Obstacles" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
 [node name="Enemies" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
-[node name="RollerBot" parent="Enemies" node_paths=PackedStringArray("mark_points_array") instance=ExtResource("5_gterx")]
-position = Vector2(1856, 192)
-mark_points_array = [NodePath("../../Markers/Pos1"), NodePath("../../Markers/Pos2"), NodePath("../../Markers/Pos3"), NodePath("../../Markers/Pos4")]
-
-[node name="Drone" parent="Enemies" instance=ExtResource("5_53b3l")]
-position = Vector2(2240, 832)
-
-[node name="EnemyRobot" parent="Enemies" instance=ExtResource("5_jk84r")]
-position = Vector2(448, 1344)
-
 [node name="Markers" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
 [node name="Pos1" type="Marker2D" parent="Markers"]
-position = Vector2(1856, 1216)
+position = Vector2(1856, 192)
 gizmo_extents = 40.0
 
 [node name="Pos2" type="Marker2D" parent="Markers"]
-position = Vector2(832, 1216)
+position = Vector2(1856, 1216)
 gizmo_extents = 40.0
 
 [node name="Pos3" type="Marker2D" parent="Markers"]
-position = Vector2(832, 192)
+position = Vector2(832, 1216)
 gizmo_extents = 40.0
 
 [node name="Pos4" type="Marker2D" parent="Markers"]
-position = Vector2(1856, 192)
+position = Vector2(832, 192)
 gizmo_extents = 40.0
 
 [node name="Player" parent="." instance=ExtResource("1_yknjj")]
@@ -394,5 +385,3 @@ position = Vector2(704, 576)
 metadata/_edit_lock_ = true
 
 [node name="UI" parent="." instance=ExtResource("3_f71h5")]
-
-[connection signal="input_pressed" from="Player" to="." method="_on_player_input_pressed"]
