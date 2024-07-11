@@ -6,8 +6,6 @@ class_name Level
 @onready var player = $Player as Player
 @onready var playerClone = preload("res://scenes/player/player_clone.tscn")
 
-var shield_active: bool = false
-
 func _ready():
 	player.is_controlled = true
 	player.connect("powerUpActivated", _on_player_activate_powerup)
@@ -27,32 +25,41 @@ func _ready():
 	
 func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	
-	if powerupRef is LifeUP and activator is Player:
-		Globals.health += 1
-	
-	elif powerupRef is EnergyUP and activator is Player:
-		Globals.energy_charges += 1
-	
-	elif powerupRef is Shield and activator is Player:
-		shield_active = true
-		await get_tree().create_timer(powerupRef.shield_duration).timeout
-		shield_active = false
+	if activator is Player: 		# Player Activates Powerup
 		
-	elif powerupRef is ChronoLoop and activator is Player:
-		if not powerupRef.current_clone:
-			player.is_controlled = false
-			await get_tree().create_timer(0.1).timeout
-			await activator.input_pressed
-			spawn_clone(PlayerClone.CloneType.CHRONO_LOOP, powerupRef)
+		if powerupRef is LifeUP:
+			Globals.health += 1
+		
+		elif powerupRef is EnergyUP:
+			Globals.energy_charges += 1
+		
+		elif powerupRef is Shield:
+			Globals.shield = true
+			await get_tree().create_timer(powerupRef.shield_duration).timeout
+			Globals.shield = false
+			
+		elif powerupRef is ChronoLoop:
+			if powerupRef.current_clone == null:
+				player.is_controlled = false
+				await get_tree().create_timer(0.1).timeout
+				await activator.input_pressed
+				spawn_clone(PlayerClone.CloneType.CHRONO_LOOP, powerupRef)
+				
+		elif powerupRef == "Phantom":
+			spawn_clone(PlayerClone.CloneType.CHRONO_PHANTOM)
+			
+		elif powerupRef == "Bomb":
+			spawn_clone(PlayerClone.CloneType.CHRONO_BOMB)
 
-	elif powerupRef is ChronoLoop and activator is PlayerClone:
+	elif activator is PlayerClone and powerupRef is ChronoLoop:
 		if activator.is_recording == true and not activator.recording.is_empty():
 			print("Recording Complete")
+			powerupRef.interaction_area.update_label_text("Press Q to Reset")
 			activator.is_recording = false
 			activator.is_controlled = false
 			player.is_controlled = true
 			
-			 #To Un-pause Other Clone Entities
+			#To Un-pause Other Clone Entities
 			var clones = get_node("Player_Clones").get_children()
 			for currentClone in clones:
 				if currentClone.process_mode == Node.PROCESS_MODE_DISABLED:
@@ -61,15 +68,12 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 		if activator.is_recording == false:
 			await get_tree().create_timer(0.5).timeout
 			activator.replay_movements()
-			
-	elif powerupRef == "Phantom" and activator is Player:
-		spawn_clone(PlayerClone.CloneType.CHRONO_PHANTOM)
-		
-	elif powerupRef == "Bomb" and activator is Player:
-		spawn_clone(PlayerClone.CloneType.CHRONO_BOMB)
-		
-	else:
-		print("Not a signal")
+	
+	elif activator == "Player" and powerupRef is ChronoLoop:
+		powerupRef.interaction_area.update_label_text("Touch To Create Loop")
+		powerupRef.current_clone.disappear()
+		powerupRef.current_clone = null
+		print("Powerup Reset")
 			
 func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 	var cloneTemp: PlayerClone = playerClone.instantiate()
@@ -106,7 +110,7 @@ func _on_obstacle_collided(collider = null, obstacle: Obstacle = null) -> void:
 		player_hit(obstacle.damage)
 	
 func player_hit(damage: int):
-	if Globals.vulnerability == true and not shield_active:
+	if Globals.vulnerability == true and not Globals.shield:
 		Globals.health -= damage
 		player.hit_timer_activate()
 		

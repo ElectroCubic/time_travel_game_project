@@ -3,7 +3,7 @@ extends Enemy
 class_name RollerBot
 
 @onready var player: Player = get_node("../../Player")
-@export var bot_dmg: int = 1
+@export var bot_dmg: int = 3
 @export var bot_speed: int = 600
 @export var mark_points_array: Array[Marker2D]
 
@@ -35,7 +35,7 @@ func move_enemy(delta) -> void:
 		update_next_target_pos()
 
 func update_next_target_pos():
-	print(current_index)
+	#print(current_index)
 	is_moving = true
 	
 	if current_index < no_of_points:
@@ -51,7 +51,6 @@ func update_next_target_pos():
 			current_index -= 1
 		else:
 			current_index = (no_of_points - 1)
-	
 
 func get_direction_to(pos: Vector2) -> Vector2:
 	return global_position.direction_to(pos)
@@ -75,4 +74,5 @@ func check_player_presence():
 func _on_body_entered(body):
 	if body.name == "Player":
 		enemyCollided.emit(body,self)
+		print("Oof")
 		queue_free()

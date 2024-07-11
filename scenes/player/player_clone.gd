@@ -65,7 +65,7 @@ func move_clone(dir: Vector2i):
 		is_moving = true
 		check_moves()
 		var tween = create_tween()
-		tween.tween_property(self, "global_position", target_pos, move_time).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(self, "global_position", target_pos, move_time).set_trans(Tween.TRANS_CUBIC)
 		await tween.finished
 		is_moving = false
 

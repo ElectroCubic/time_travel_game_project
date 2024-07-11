@@ -16,3 +16,8 @@ var vulnerability = true:
 	set(value):
 		vulnerability = value
 		stat_change.emit()
+
+var shield: bool = false:
+	set(value):
+		shield = value
+		stat_change.emit()

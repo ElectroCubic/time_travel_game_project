@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://epc0n7top7wr"]
+
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="1_oylfi"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_d2ksh"]
+font_size = 32
+
+[node name="InteractionArea" type="Area2D"]
+collision_layer = 32
+script = ExtResource("1_oylfi")
+
+[node name="Label" type="Label" parent="."]
+z_index = 20
+offset_left = -206.0
+offset_top = -45.0
+offset_right = 206.0
+label_settings = SubResource("LabelSettings_d2ksh")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="body_entered" from="." to="." method="_on_interaction_area_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_interaction_area_body_exited"]

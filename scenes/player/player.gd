@@ -65,9 +65,6 @@ func player_input():
 	elif Input.is_action_just_pressed("Bomb") and Globals.energy_charges > 1:
 		Globals.energy_charges -= 2
 		powerUpActivated.emit(self,"Bomb")
-	
-	elif Input.is_action_just_pressed("Reset"):
-		print("Reset")
 
 func get_target_pos(dir: Vector2i):
 	var current_tile: Vector2i = tile_map.local_to_map(global_position)
