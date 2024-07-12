@@ -3,7 +3,7 @@ extends Obstacle
 class_name StaticLaser
 
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
-@onready var line_2d = $RayCast2D/Line2D
+@onready var line_2d: Line2D = $RayCast2D/Line2D
 var collisionPos: Vector2 = Vector2.ZERO
 
 enum Laser_Orientation {
@@ -19,7 +19,7 @@ enum Laser_Orientation {
 		laser_active = value
 		set_process(laser_active)
 
-func _ready():
+func _ready() -> void:
 	damage = laser_dmg
 	is_active = laser_active
 	can_move = false
@@ -28,14 +28,14 @@ func _ready():
 		line_2d.add_point(ray_cast_2d.position)
 		line_2d.add_point(ray_cast_2d.target_position)
 	
-func _process(_delta):
+func _process(_delta) -> void:
 	if is_active:
 		check_collision()
 		update_laser_collision()
 	
-func check_collision():
+func check_collision() -> void:
 	if ray_cast_2d.is_colliding():
-		var collider = ray_cast_2d.get_collider()
+		var collider := ray_cast_2d.get_collider()
 		collisionPos = ray_cast_2d.get_collision_point()
 		is_colliding = true
 		obstacleCollided.emit(collider, self)

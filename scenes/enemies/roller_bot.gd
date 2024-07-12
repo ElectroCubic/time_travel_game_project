@@ -12,7 +12,7 @@ var target_pos: Vector2
 var current_index: int = 1
 var no_of_points: int = 0
 
-func _ready():
+func _ready() -> void:
 	is_moving = false
 	speed = bot_speed
 	damage = bot_dmg
@@ -20,14 +20,14 @@ func _ready():
 	no_of_points = mark_points_array.size()
 	update_next_target_pos()
 
-func _process(delta):
+func _process(delta: float) -> void:
 	if not is_moving:
 		return
 	
 	check_player_presence()
 	move_enemy(delta)
 
-func move_enemy(delta) -> void:
+func move_enemy(delta: float) -> void:
 	global_position = global_position.move_toward(target_pos, speed * delta)
 	
 	if global_position == target_pos:
@@ -55,9 +55,9 @@ func update_next_target_pos():
 func get_direction_to(pos: Vector2) -> Vector2:
 	return global_position.direction_to(pos)
 
-func check_player_presence():
-	var relative_side = get_direction_to(player.position)
-	var target_side = get_direction_to(target_pos)
+func check_player_presence() -> void:
+	var relative_side := get_direction_to(player.position)
+	var target_side := get_direction_to(target_pos)
 	
 	if (relative_side == Vector2.LEFT or
 		relative_side == Vector2.RIGHT or
@@ -71,7 +71,7 @@ func check_player_presence():
 			current_index -= 1
 		update_next_target_pos()
 
-func _on_body_entered(body):
+func _on_body_entered(body) -> void:
 	if body.name == "Player":
 		enemyCollided.emit(body,self)
 		print("Oof")

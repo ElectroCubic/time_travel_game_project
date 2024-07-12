@@ -4,21 +4,22 @@ class_name InteractionManager
 
 @export var node: Node
 @export var interact_text: String = ""
-@onready var label = $Label
+@export var label_y_offset: int = 100
+@onready var label: Label = $Label
 var can_interact: bool = false
 
 func update_label_text(text: String) -> void:
 	label.text = text
 
-func _ready():
+func _ready() -> void:
 	update_label_text(interact_text)
-	label.global_position = Vector2(node.global_position.x - (label.size.x / 2), node.global_position.y - 100)
+	label.global_position = Vector2(node.global_position.x - (label.size.x / 2), node.global_position.y - label_y_offset)
 	label.hide()
 
-func _on_interaction_area_body_entered(_body):
+func _on_interaction_area_body_entered(_body) -> void:
 	can_interact = true
 	label.show()
 
-func _on_interaction_area_body_exited(_body):
+func _on_interaction_area_body_exited(_body) -> void:
 	can_interact = false
 	label.hide()

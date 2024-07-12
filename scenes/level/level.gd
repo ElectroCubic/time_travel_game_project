@@ -2,17 +2,17 @@ extends Node2D
 
 class_name Level
 
-@onready var tile_map = $TileMap
+@onready var tile_map = $TileMap as TileMap
 @onready var player = $Player as Player
-@onready var playerClone = preload("res://scenes/player/player_clone.tscn")
+@onready var playerClone: PackedScene = preload("res://scenes/player/player_clone.tscn")
 
-func _ready():
+func _ready() -> void:
 	player.is_controlled = true
 	player.connect("powerUpActivated", _on_player_activate_powerup)
 	
-	var powerups = get_node("Powerups").get_children()
-	var obstacles = get_node("Obstacles").get_children()
-	var enemies = get_node("Enemies").get_children()
+	var powerups := get_node("Powerups").get_children()
+	var obstacles := get_node("Obstacles").get_children()
+	var enemies := get_node("Enemies").get_children()
 	
 	for powerup in powerups:
 		powerup.connect("powerUpActivated", _on_player_activate_powerup)
@@ -68,15 +68,9 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 		if activator.is_recording == false:
 			await get_tree().create_timer(0.5).timeout
 			activator.replay_movements()
-	
-	elif activator == "Player" and powerupRef is ChronoLoop:
-		powerupRef.interaction_area.update_label_text("Touch To Create Loop")
-		powerupRef.current_clone.disappear()
-		powerupRef.current_clone = null
-		print("Powerup Reset")
-			
+
 func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
-	var cloneTemp: PlayerClone = playerClone.instantiate()
+	var cloneTemp := playerClone.instantiate() as PlayerClone
 	cloneTemp.position = player.global_position
 	cloneTemp.type = type
 	
@@ -88,18 +82,14 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 		print("Recording")
 		
 	# To Pause Other Clone Entities
-		var clones = get_node("Player_Clones").get_children()
+		var clones := get_node("Player_Clones").get_children()
 		for currentClone in clones:
 			if not (currentClone == cloneTemp):
 				currentClone.process_mode = Node.PROCESS_MODE_DISABLED
-				
-	elif type == PlayerClone.CloneType.CHRONO_PHANTOM:
-		cloneTemp.num_of_moves = 5
-	
+
 	elif type == PlayerClone.CloneType.CHRONO_BOMB:
 		player.is_controlled = false
 		cloneTemp.is_controlled = true
-		cloneTemp.num_of_moves = 6
 		
 	var node = get_node("Player_Clones")
 	node.add_child.bind(cloneTemp).call_deferred()
@@ -109,7 +99,7 @@ func _on_obstacle_collided(collider = null, obstacle: Obstacle = null) -> void:
 	if collider is Player and obstacle.damage > 0:
 		player_hit(obstacle.damage)
 	
-func player_hit(damage: int):
+func player_hit(damage: int) -> void:
 	if Globals.vulnerability == true and not Globals.shield:
 		Globals.health -= damage
 		player.hit_timer_activate()

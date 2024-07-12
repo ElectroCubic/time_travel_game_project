@@ -7,7 +7,7 @@
 [ext_resource type="Script" path="res://scenes/level/TileMap.gd" id="3_icxov"]
 [ext_resource type="PackedScene" uid="uid://dlxqeltamfdal" path="res://scenes/powerups/chrono_loop.tscn" id="5_pgd63"]
 [ext_resource type="PackedScene" uid="uid://6n737koyggf0" path="res://scenes/powerups/shield.tscn" id="6_l6bup"]
-[ext_resource type="PackedScene" uid="uid://b4f58rjvrott3" path="res://scenes/enemies/roller_bot.tscn" id="6_xp8bf"]
+[ext_resource type="PackedScene" uid="uid://o5jqrffn2qdw" path="res://scenes/enemies/drone.tscn" id="6_rh6fm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_b6a1i"]
 texture = ExtResource("2_u8rf3")
@@ -360,9 +360,8 @@ metadata/_edit_lock_ = true
 [node name="Enemies" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
 
-[node name="RollerBot" parent="Enemies" node_paths=PackedStringArray("mark_points_array") instance=ExtResource("6_xp8bf")]
-position = Vector2(1856, 192)
-mark_points_array = [NodePath("../../Markers/Pos1"), NodePath("../../Markers/Pos2"), NodePath("../../Markers/Pos3"), NodePath("../../Markers/Pos4")]
+[node name="Drone" parent="Enemies" instance=ExtResource("6_rh6fm")]
+position = Vector2(1984, 704)
 
 [node name="Markers" type="Node2D" parent="."]
 metadata/_edit_lock_ = true
@@ -371,20 +370,8 @@ metadata/_edit_lock_ = true
 position = Vector2(1856, 192)
 gizmo_extents = 40.0
 
-[node name="Pos2" type="Marker2D" parent="Markers"]
-position = Vector2(1856, 1216)
-gizmo_extents = 40.0
-
-[node name="Pos3" type="Marker2D" parent="Markers"]
-position = Vector2(832, 1216)
-gizmo_extents = 40.0
-
-[node name="Pos4" type="Marker2D" parent="Markers"]
-position = Vector2(832, 192)
-gizmo_extents = 40.0
-
 [node name="Player" parent="." instance=ExtResource("1_yknjj")]
-position = Vector2(704, 576)
+position = Vector2(448, 448)
 
 [node name="Player_Clones" type="Node2D" parent="."]
 metadata/_edit_lock_ = true

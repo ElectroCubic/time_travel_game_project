@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 Globals="*res://globals/globals.gd"
 
+[editor]
+
+import/reimport_missing_imported_files=false
+
 [filesystem]
 
 import/blender/enabled=false
