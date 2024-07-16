@@ -92,7 +92,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwu1c"]
-size = Vector2(54, 48)
+size = Vector2(52, 52)
 
 [sub_resource type="Animation" id="Animation_a3dm1"]
 resource_name = "Back Walk"

@@ -18,7 +18,8 @@ func _ready() -> void:
 		powerup.connect("powerUpActivated", _on_player_activate_powerup)
 		
 	for obstacle in obstacles:
-		obstacle.connect("obstacleCollided", _on_obstacle_collided)
+		if not obstacle is WoodenBox:
+			obstacle.connect("obstacleCollided", _on_obstacle_collided)
 		
 	for enemy in enemies:
 		enemy.connect("enemyCollided", _on_enemy_collided)

@@ -5,13 +5,14 @@ class_name Player
 signal input_pressed
 signal powerUpActivated(activator, powerupRef)
 
-@export var MAX_SPEED: int = 500
+@export var MAX_SPEED: int = 400
 var speed: int = MAX_SPEED
 var direction: Vector2i = Vector2i.DOWN
 var target_pos: Vector2
 var is_moving: bool = false
 var is_controlled: bool = true
 var is_move_key_pressed: bool = false
+var push_dirs: Array[bool] = [true,true,true,true]
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer
@@ -23,23 +24,30 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if is_controlled and not is_moving:
 		player_input()
+
 	elif is_moving:
 		move_player(delta)
 	
 	if not is_controlled and is_move_key_pressed:
 		input_pressed.emit()
 
+func cant_push(dir: Vector2i):
+	push_dirs[0] = false if dir == Vector2i.LEFT else true
+	push_dirs[1] = false if dir == Vector2i.RIGHT else true
+	push_dirs[2] = false if dir == Vector2i.UP else true
+	push_dirs[3] = false if dir == Vector2i.DOWN else true
+
 func player_input() -> void:
 	# Player Movement Controls
 	is_move_key_pressed = false
 	
-	if Input.is_action_pressed("Left"):
+	if Input.is_action_pressed("Left") and push_dirs[0]:
 		get_target_pos(Vector2i.LEFT)
-	elif Input.is_action_pressed("Right"):
+	elif Input.is_action_pressed("Right") and push_dirs[1]:
 		get_target_pos(Vector2i.RIGHT)
-	elif Input.is_action_pressed("Up"):
+	elif Input.is_action_pressed("Up") and push_dirs[2]:
 		get_target_pos(Vector2i.UP)
-	elif Input.is_action_pressed("Down"):
+	elif Input.is_action_pressed("Down") and push_dirs[3]:
 		get_target_pos(Vector2i.DOWN)
 
 	# Player Abilities
@@ -88,3 +96,4 @@ func _on_hit_timer_timeout() -> void:
 
 func _on_emp_timer_timeout():
 	speed = MAX_SPEED
+

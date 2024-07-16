@@ -1,0 +1,63 @@
+[gd_scene load_steps=5 format=3 uid="uid://dg03g52kgg86t"]
+
+[ext_resource type="Script" path="res://scenes/obstacles/woodenBox.gd" id="1_orf1t"]
+[ext_resource type="Texture2D" uid="uid://c5fwhdq00nd8h" path="res://graphics/obstacles/boxAlt.png" id="2_35lgd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3gi2u"]
+size = Vector2(100, 100)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_cydta"]
+radius = 110.0
+
+[node name="WoodenBox" type="Area2D"]
+collision_layer = 64
+collision_mask = 255
+priority = 1
+linear_damp = 50.0
+script = ExtResource("1_orf1t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_3gi2u")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+scale = Vector2(0.6875, 0.679688)
+color = Color(0.350649, 0.21846, 0.0738585, 1)
+polygon = PackedVector2Array(-64, -64, 64, -64, 64, 64, -64, 64)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_35lgd")
+
+[node name="Box_Front" type="RayCast2D" parent="."]
+target_position = Vector2(0, 128)
+collision_mask = 223
+collide_with_areas = true
+
+[node name="Box_Back" type="RayCast2D" parent="."]
+rotation = 3.14159
+target_position = Vector2(0, 128)
+collision_mask = 223
+collide_with_areas = true
+
+[node name="Box_Right" type="RayCast2D" parent="."]
+rotation = 4.71239
+target_position = Vector2(0, 128)
+collision_mask = 223
+collide_with_areas = true
+
+[node name="Box_Left" type="RayCast2D" parent="."]
+rotation = 1.5708
+target_position = Vector2(0, 128)
+collision_mask = 223
+collide_with_areas = true
+
+[node name="PlayerNear" type="Area2D" parent="."]
+collision_layer = 64
+priority = 10
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerNear"]
+shape = SubResource("CircleShape2D_cydta")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="PlayerNear" to="." method="_on_player_near_body_entered"]
+[connection signal="body_exited" from="PlayerNear" to="." method="_on_player_near_body_exited"]

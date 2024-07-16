@@ -35,7 +35,7 @@ func _process(delta: float) -> void:
 		get_path_to_pos(player.position)
 	else:
 		set_raycast_direction()
-		check_raycast_collsion()
+		check_raycast_collision()
 		move_enemy(delta)
 
 func move_enemy(delta: float) -> void:
@@ -59,7 +59,7 @@ func set_raycast_direction() -> void:
 	elif direction == Vector2.DOWN:
 		ray_cast_2d.rotation_degrees = 0
 		
-func check_raycast_collsion() -> void:
+func check_raycast_collision() -> void:
 	if not ray_cast_2d.is_colliding():
 		return
 		
