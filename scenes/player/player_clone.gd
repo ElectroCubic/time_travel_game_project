@@ -9,6 +9,7 @@ var is_recording: bool = false
 var recording: Array[Vector2i]
 var type: CloneType
 var num_of_moves: int = 0
+var push_dirs: Array[bool] = [true,true,true,true]
 
 @export var chrono_phantom_moves: int = 5
 @export var chrono_bomb_moves: int = 5
@@ -37,14 +38,20 @@ func _unhandled_key_input(_event) -> void:
 	if is_controlled and not is_moving:
 		player_input()
 
+func cant_push(dir: Vector2i):
+	push_dirs[0] = false if dir == Vector2i.LEFT else true
+	push_dirs[1] = false if dir == Vector2i.RIGHT else true
+	push_dirs[2] = false if dir == Vector2i.UP else true
+	push_dirs[3] = false if dir == Vector2i.DOWN else true
+
 func player_input() -> void:
-	if Input.is_action_pressed("Left"):
+	if Input.is_action_pressed("Left") and push_dirs[0]:
 		move_clone(Vector2i.LEFT)
-	elif Input.is_action_pressed("Right"):
+	elif Input.is_action_pressed("Right") and push_dirs[1]:
 		move_clone(Vector2i.RIGHT)
-	elif Input.is_action_pressed("Up"):
+	elif Input.is_action_pressed("Up") and push_dirs[2]:
 		move_clone(Vector2i.UP)
-	elif Input.is_action_pressed("Down"):
+	elif Input.is_action_pressed("Down") and push_dirs[3]:
 		move_clone(Vector2i.DOWN)
 
 func check_moves() -> void:

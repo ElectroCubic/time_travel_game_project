@@ -37,7 +37,7 @@ size = Vector2(54, 96)
 
 [node name="PlayerClone" type="CharacterBody2D"]
 collision_layer = 2
-collision_mask = 30
+collision_mask = 222
 motion_mode = 1
 script = ExtResource("1_vue14")
 move_time = 0.5

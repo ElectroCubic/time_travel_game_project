@@ -5,7 +5,7 @@ class_name Player
 signal input_pressed
 signal powerUpActivated(activator, powerupRef)
 
-@export var MAX_SPEED: int = 400
+@export var MAX_SPEED: int = 500
 var speed: int = MAX_SPEED
 var direction: Vector2i = Vector2i.DOWN
 var target_pos: Vector2
@@ -21,7 +21,7 @@ var push_dirs: Array[bool] = [true,true,true,true]
 func _ready() -> void:
 	anim.play("Idle_Front")
 
-func _process(delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	if is_controlled and not is_moving:
 		player_input()
 
