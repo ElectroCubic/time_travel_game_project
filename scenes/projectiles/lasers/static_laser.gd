@@ -33,7 +33,7 @@ func _process(_delta) -> void:
 		check_collision()
 		update_laser_collision()
 
-func set_orientation():
+func set_orientation() -> void:
 	if orientation == 'Left':
 		rotation_degrees = 180
 	elif orientation == 'Right':

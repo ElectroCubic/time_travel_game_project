@@ -49,6 +49,5 @@ func check_player_presence() -> void:
 
 func _on_body_entered(body) -> void:
 	if body.name == "Player":
-		print("Oof")
-		#queue_free()
+		queue_free()
 	enemyCollided.emit(body,self)

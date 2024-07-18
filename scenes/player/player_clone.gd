@@ -86,6 +86,7 @@ func record_movement(dir: Vector2i) -> void:
 	#print(recording)
 
 func replay_movements() -> void:
+	await get_tree().create_timer(0.5).timeout
 	for dir in recording:
 		await move_clone(dir)
 		

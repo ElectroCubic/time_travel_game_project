@@ -6,6 +6,7 @@
 size = Vector2(176, 94)
 
 [node name="StaticLaser" type="StaticBody2D"]
+rotation = 3.14159
 collision_layer = 64
 collision_mask = 79
 script = ExtResource("1_dakxv")
@@ -16,6 +17,7 @@ collision_mask = 79
 collide_with_areas = true
 
 [node name="Line2D" type="Line2D" parent="RayCast2D"]
+points = PackedVector2Array(0, 0, 1500, 0)
 width = 30.0
 default_color = Color(1, 0, 0, 1)
 

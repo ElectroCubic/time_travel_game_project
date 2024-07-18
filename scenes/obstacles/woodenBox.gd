@@ -5,16 +5,16 @@ class_name WoodenBox
 @export var move_time: float = 0.2
 @onready var player = get_node("../../Player") as Player
 @onready var tile_map = get_node("../../TileMap") as TileMap
-@onready var box_front = $Box_Front
-@onready var box_back = $Box_Back
-@onready var box_right = $Box_Right
-@onready var box_left = $Box_Left
+@onready var box_front := $Box_Front
+@onready var box_back := $Box_Back
+@onready var box_right := $Box_Right
+@onready var box_left := $Box_Left
 var target_pos: Vector2
 
-func _ready():
+func _ready() -> void:
 	toggle_active()
 
-func toggle_active():
+func toggle_active() -> void:
 	is_active = !is_active
 	set_physics_process(is_active)
 	box_front.enabled = is_active
@@ -22,10 +22,10 @@ func toggle_active():
 	box_left.enabled = is_active
 	box_right.enabled = is_active
 
-func _physics_process(_delta):
+func _physics_process(_delta) -> void:
 	check_box_collision()
 
-func check_box_collision():
+func check_box_collision() -> void:
 	var left_collider = box_left.get_collider()
 	var right_collider = box_right.get_collider()
 	var up_collider = box_back.get_collider()
@@ -43,7 +43,7 @@ func check_box_collision():
 	if down_collider and down_collider.has_method("cant_push") and up_collider:
 		down_collider.cant_push(Vector2i.UP)
 
-func move_box(dir):
+func move_box(dir: Vector2i) -> void:
 	if is_moving:
 		return
 		
@@ -70,14 +70,14 @@ func get_target_pos(dir: Vector2i) -> Vector2:
 	var target_tile: Vector2i = current_tile + dir
 	return tile_map.map_to_local(target_tile)
 
-func _on_body_entered(body):
+func _on_body_entered(body) -> void:
 	if not body is TileMap:
 		move_box(body.direction)
 
-func _on_player_near_body_entered(_body):
+func _on_player_near_body_entered(_body) -> void:
 	toggle_active()
 
-func _on_player_near_body_exited(body):
+func _on_player_near_body_exited(body) -> void:
 	toggle_active()
 	if not body is TileMap:
 		body.cant_push(Vector2.ZERO)

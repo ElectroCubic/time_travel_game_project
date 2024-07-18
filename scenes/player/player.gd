@@ -94,6 +94,5 @@ func hit_timer_activate() -> void:
 func _on_hit_timer_timeout() -> void:
 	Globals.vulnerability = true
 
-func _on_emp_timer_timeout():
+func _on_emp_timer_timeout() -> void:
 	speed = MAX_SPEED
-

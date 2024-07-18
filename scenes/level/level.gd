@@ -26,7 +26,24 @@ func _ready() -> void:
 	
 func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 	
-	if activator is Player: 		# Player Activates Powerup
+	if activator is PlayerClone and powerupRef is ChronoLoop:
+		if activator.is_recording == true and not activator.recording.is_empty():
+			print("Recording Complete")
+			powerupRef.interaction_area.update_label_text("Press Q to Reset")
+			activator.is_recording = false
+			activator.is_controlled = false
+			player.is_controlled = true
+			
+			#To Un-pause Other Clone Entities
+			var clones = get_node("Player_Clones").get_children()
+			for currentClone in clones:
+				if currentClone.process_mode == Node.PROCESS_MODE_DISABLED:
+					currentClone.process_mode = Node.PROCESS_MODE_INHERIT
+					
+		if activator and activator.is_recording == false:
+			activator.replay_movements()
+	
+	elif activator is Player or activator == "Player":
 		
 		if powerupRef is LifeUP:
 			Globals.health += 1
@@ -41,9 +58,8 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 			
 		elif powerupRef is ChronoLoop:
 			if powerupRef.current_clone == null:
+				powerupRef.interaction_area.update_label_text("")
 				player.is_controlled = false
-				await get_tree().create_timer(0.1).timeout
-				await activator.input_pressed
 				spawn_clone(PlayerClone.CloneType.CHRONO_LOOP, powerupRef)
 				
 		elif powerupRef == "Phantom":
@@ -52,33 +68,15 @@ func _on_player_activate_powerup(activator = null, powerupRef = null) -> void:
 		elif powerupRef == "Bomb":
 			spawn_clone(PlayerClone.CloneType.CHRONO_BOMB)
 
-	elif activator is PlayerClone and powerupRef is ChronoLoop:
-		if activator.is_recording == true and not activator.recording.is_empty():
-			print("Recording Complete")
-			powerupRef.interaction_area.update_label_text("Press Q to Reset")
-			activator.is_recording = false
-			activator.is_controlled = false
-			player.is_controlled = true
-			
-			#To Un-pause Other Clone Entities
-			var clones = get_node("Player_Clones").get_children()
-			for currentClone in clones:
-				if currentClone.process_mode == Node.PROCESS_MODE_DISABLED:
-					currentClone.process_mode = Node.PROCESS_MODE_INHERIT
-					
-		if activator.is_recording == false:
-			await get_tree().create_timer(0.5).timeout
-			activator.replay_movements()
-
 func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 	var cloneTemp := playerClone.instantiate() as PlayerClone
-	cloneTemp.position = player.global_position
 	cloneTemp.type = type
 	
 	if type == PlayerClone.CloneType.CHRONO_LOOP:
-		cloneTemp.is_controlled = true
 		powerupRef.current_clone = cloneTemp
+		cloneTemp.position = powerupRef.position
 		cloneTemp.direction = player.direction
+		cloneTemp.is_controlled = true
 		cloneTemp.is_recording = true
 		print("Recording")
 		
@@ -89,6 +87,7 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 				currentClone.process_mode = Node.PROCESS_MODE_DISABLED
 
 	elif type == PlayerClone.CloneType.CHRONO_BOMB:
+		cloneTemp.position = player.global_position
 		player.is_controlled = false
 		cloneTemp.is_controlled = true
 		

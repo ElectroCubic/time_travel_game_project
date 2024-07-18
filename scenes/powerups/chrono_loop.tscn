@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scenes/powerups/chrono_loop.gd" id="1_esc6n"]
 [ext_resource type="Texture2D" uid="uid://bs6nvbodw2r8e" path="res://graphics/powerups/environment_02.png" id="2_e301t"]
 [ext_resource type="Texture2D" uid="uid://ch7tvh4vj7max" path="res://graphics/powerups/environment_11.png" id="2_lo1l8"]
-[ext_resource type="PackedScene" uid="uid://epc0n7top7wr" path="res://scenes/others/interaction_manager.tscn" id="4_iasdt"]
+[ext_resource type="PackedScene" uid="uid://epc0n7top7wr" path="res://scenes/interaction/interaction_manager.tscn" id="4_iasdt"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_352oi"]
 animations = [{
@@ -44,8 +44,7 @@ autoplay = "Inactive"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_b63vh")
 
-[node name="InteractionArea" parent="." node_paths=PackedStringArray("node") instance=ExtResource("4_iasdt")]
-node = NodePath("..")
+[node name="InteractionArea" parent="." instance=ExtResource("4_iasdt")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_l46yd")
