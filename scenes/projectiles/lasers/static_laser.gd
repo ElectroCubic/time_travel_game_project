@@ -1,38 +1,48 @@
+@tool
 extends Obstacle
 
 class_name StaticLaser
+
+@export_enum('Left','Right','Up','Down') var orientation: String = 'Left'
+@export var laser_dmg: int = 2
+@export var laser_active: bool = true:
+	set(value):
+		laser_active = value
+		set_process(laser_active)
 
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 @onready var line_2d: Line2D = $RayCast2D/Line2D
 var collisionPos: Vector2 = Vector2.ZERO
 
-enum Laser_Orientation {
-	LEFT,
-	RIGHT,
-	UP,
-	DOWN
-}
-@export var orientation: Laser_Orientation = Laser_Orientation.LEFT
-@export var laser_dmg: int = 2
-@export var laser_active: bool:
-	set(value):
-		laser_active = value
-		set_process(laser_active)
-
 func _ready() -> void:
 	damage = laser_dmg
 	is_active = laser_active
 	can_move = false
+	set_orientation()
 	set_process(is_active)
 	if is_active:
 		line_2d.add_point(ray_cast_2d.position)
 		line_2d.add_point(ray_cast_2d.target_position)
-	
+
 func _process(_delta) -> void:
+	if Engine.is_editor_hint():
+		set_orientation()
+		return
+
 	if is_active:
 		check_collision()
 		update_laser_collision()
-	
+
+func set_orientation():
+	if orientation == 'Left':
+		rotation_degrees = 180
+	elif orientation == 'Right':
+		rotation_degrees = 0
+	elif orientation == 'Up':
+		rotation_degrees = 270
+	elif orientation == 'Down':
+		rotation_degrees = 90
+
 func check_collision() -> void:
 	if ray_cast_2d.is_colliding():
 		var collider := ray_cast_2d.get_collider()
@@ -45,13 +55,13 @@ func check_collision() -> void:
 func update_laser_collision() -> void:
 	if is_colliding:
 		match orientation:
-			Laser_Orientation.LEFT:
+			'Left':
 				line_2d.add_point(Vector2(ray_cast_2d.global_position.x - collisionPos.x,0))
-			Laser_Orientation.RIGHT:
+			'Right':
 				line_2d.add_point(Vector2(collisionPos.x - ray_cast_2d.global_position.x,0))
-			Laser_Orientation.UP:
+			'Up':
 				line_2d.add_point(Vector2(ray_cast_2d.global_position.y - collisionPos.y,0))
-			Laser_Orientation.DOWN:
+			'Down':
 				line_2d.add_point(Vector2(collisionPos.y - ray_cast_2d.global_position.y,0))
 	else:
 		line_2d.add_point(ray_cast_2d.target_position)

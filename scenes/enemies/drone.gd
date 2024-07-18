@@ -63,7 +63,7 @@ func set_direction() -> void:
 	elif direction == Vector2.DOWN:
 		rotation_degrees = 180
 
-func emp_burst():
+func emp_burst() -> void:
 	if player_in_range:
 		player.emp_hit(emp_duration)
 		var tween: Tween = create_tween()

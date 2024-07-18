@@ -2,77 +2,53 @@ extends Enemy
 
 class_name RollerBot
 
+@onready var ray_cast_2d = $RayCast2D
 @onready var player: Player = get_node("../../Player")
+
 @export var bot_dmg: int = 3
 @export var bot_speed: int = 600
-@export var mark_points_array: Array[Marker2D]
-
-var clock_wise_dir: bool = true
-var target_pos: Vector2
-var current_index: int = 1
-var no_of_points: int = 0
+@export var offset: int = 0
+@export var forward: bool = true
+var path: Path2D
+var path_follow: PathFollow2D
 
 func _ready() -> void:
 	is_moving = false
 	speed = bot_speed
 	damage = bot_dmg
-	direction = Vector2.DOWN
-	no_of_points = mark_points_array.size()
-	update_next_target_pos()
+	path = get_children().back() 	# Gives Path2D Node
+	path_follow = PathFollow2D.new()
+	path.add_child(path_follow)
+	path_follow.progress = offset
 
-func _process(delta: float) -> void:
-	if not is_moving:
-		return
-	
+func _physics_process(delta: float) -> void:
+	set_ray_dir()
 	check_player_presence()
 	move_enemy(delta)
+	
+func set_ray_dir():
+	if forward:
+		ray_cast_2d.rotation_degrees = path_follow.rotation_degrees
+	else:
+		ray_cast_2d.rotation_degrees = path_follow.rotation_degrees - 180
+
+	ray_cast_2d.force_update_transform()
+	ray_cast_2d.force_raycast_update()
 
 func move_enemy(delta: float) -> void:
-	global_position = global_position.move_toward(target_pos, speed * delta)
-	
-	if global_position == target_pos:
-		is_moving = false
-		update_next_target_pos()
-
-func update_next_target_pos():
-	#print(current_index)
-	is_moving = true
-	
-	if current_index < no_of_points:
-		target_pos = mark_points_array[current_index].position
-	
-	if clock_wise_dir:
-		if current_index < (no_of_points - 1):
-			current_index += 1
-		else:
-			current_index = 0
-	else:
-		if current_index > 0:
-			current_index -= 1
-		else:
-			current_index = (no_of_points - 1)
-
-func get_direction_to(pos: Vector2) -> Vector2:
-	return global_position.direction_to(pos)
+	var dir = 1 if forward else -1
+	path_follow.progress += bot_speed * dir * delta
+	position = path_follow.position
 
 func check_player_presence() -> void:
-	var relative_side := get_direction_to(player.position)
-	var target_side := get_direction_to(target_pos)
+	var player_dir := global_position.direction_to(player.position)
 	
-	if (relative_side == Vector2.LEFT or
-		relative_side == Vector2.RIGHT or
-		relative_side == Vector2.UP or
-		relative_side == Vector2.DOWN) and relative_side != target_side:
-		
-		clock_wise_dir = !clock_wise_dir
-		if clock_wise_dir:
-			current_index += 1
-		else:
-			current_index -= 1
-		update_next_target_pos()
+	if player_dir.normalized() != Vector2.ZERO:
+		if ray_cast_2d.is_colliding():
+			forward = !forward
 
 func _on_body_entered(body) -> void:
 	if body.name == "Player":
-		enemyCollided.emit(body,self)
 		print("Oof")
-		queue_free()
+		#queue_free()
+	enemyCollided.emit(body,self)
