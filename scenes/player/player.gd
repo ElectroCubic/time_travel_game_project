@@ -13,6 +13,7 @@ var is_moving: bool = false
 var is_controlled: bool = true
 var is_move_key_pressed: bool = false
 var push_dirs: Array[bool] = [true,true,true,true]
+var key_cards: Array[String]
 
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var anim: AnimationPlayer = $AnimationPlayer

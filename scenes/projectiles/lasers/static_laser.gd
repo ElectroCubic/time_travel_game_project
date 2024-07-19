@@ -3,7 +3,11 @@ extends Obstacle
 
 class_name StaticLaser
 
-@export_enum('Left','Right','Up','Down') var orientation: String = 'Left'
+@export_enum('Left','Right','Up','Down') var orientation: String = 'Right':
+	set(value):
+		if value != null and value != "":
+			orientation = value
+			set_orientation(value)
 @export var laser_dmg: int = 2
 @export var laser_active: bool = true:
 	set(value):
@@ -18,29 +22,25 @@ func _ready() -> void:
 	damage = laser_dmg
 	is_active = laser_active
 	can_move = false
-	set_orientation()
 	set_process(is_active)
 	if is_active:
 		line_2d.add_point(ray_cast_2d.position)
 		line_2d.add_point(ray_cast_2d.target_position)
 
 func _process(_delta) -> void:
-	if Engine.is_editor_hint():
-		set_orientation()
-		return
+	if not Engine.is_editor_hint():
+		if is_active:
+			check_collision()
+			update_laser_collision()
 
-	if is_active:
-		check_collision()
-		update_laser_collision()
-
-func set_orientation() -> void:
-	if orientation == 'Left':
+func set_orientation(dir) -> void:
+	if dir == 'Left':
 		rotation_degrees = 180
-	elif orientation == 'Right':
+	elif dir == 'Right':
 		rotation_degrees = 0
-	elif orientation == 'Up':
+	elif dir == 'Up':
 		rotation_degrees = 270
-	elif orientation == 'Down':
+	elif dir == 'Down':
 		rotation_degrees = 90
 
 func check_collision() -> void:

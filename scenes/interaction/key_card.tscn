@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://djnqjxd8slkjk"]
+
+[ext_resource type="Script" path="res://scenes/interaction/key_card.gd" id="1_inrhc"]
+[ext_resource type="Texture2D" uid="uid://2iyke5gse6qw" path="res://graphics/tileset/sokoban_tilesheet@2.png" id="2_6cuwm"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pduyg"]
+radius = 28.2843
+
+[node name="RedKeyCard" type="Area2D"]
+script = ExtResource("1_inrhc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_6cuwm")
+hframes = 13
+vframes = 8
+frame = 38
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pduyg")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

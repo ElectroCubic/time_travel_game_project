@@ -17,10 +17,6 @@ func _ready() -> void:
 func toggle_active() -> void:
 	is_active = !is_active
 	set_physics_process(is_active)
-	box_front.enabled = is_active
-	box_back.enabled = is_active
-	box_left.enabled = is_active
-	box_right.enabled = is_active
 
 func _physics_process(_delta) -> void:
 	check_box_collision()

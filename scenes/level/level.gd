@@ -90,7 +90,8 @@ func spawn_clone(type: PlayerClone.CloneType, powerupRef = null) -> void:
 		cloneTemp.position = player.global_position
 		player.is_controlled = false
 		cloneTemp.is_controlled = true
-		
+	
+	cloneTemp.position = player.global_position
 	var node = get_node("Player_Clones")
 	node.add_child.bind(cloneTemp).call_deferred()
 

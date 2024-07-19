@@ -64,11 +64,10 @@ func check_raycast_collision() -> void:
 		return
 		
 	if can_shoot and not is_moving:
-		$CooldownTimer.start()
 		is_shooting = true
 		can_shoot = false
 		shoot_missile(direction)
-		await get_tree().create_timer(0.5).timeout
+		$CooldownTimer.start()
 		is_shooting = false
 
 func get_path_to_pos(pos: Vector2) -> void:
